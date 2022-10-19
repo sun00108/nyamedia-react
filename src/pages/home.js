@@ -67,7 +67,7 @@ export default function Home() {
                     </Row>
                 </div>
             </Content>
-            <Footer>Footer</Footer>
+            <Footer></Footer>
         </Layout>
     );
 };
