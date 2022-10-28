@@ -19,6 +19,7 @@ export default function SeriesInfo() {
 
     const [ series, setSeries ] = React.useState({});
     const [ images, setImages ] = React.useState({});
+    const [ relationships, setRelationships ] = React.useState([]);
     const [ episodes, setEpisodes ] = React.useState([]);
 
     const fetchSeries = () => {
@@ -26,6 +27,7 @@ export default function SeriesInfo() {
             setSeries(res.data.series)
             setImages(res.data.images)
             setEpisodes(res.data.episodes)
+            setRelationships(res.data.relationships)
         })
     }
 
@@ -35,6 +37,12 @@ export default function SeriesInfo() {
 
     const { Header, Footer, Content } = Layout;
     const { Title, Paragraph, Text } = Typography;
+
+    const roleMap = {
+        "0": "原作",
+        "1": "导演",
+        "2": "脚本"
+    }
 
     return (
         <Layout className="components-layout-demo">
@@ -55,6 +63,19 @@ export default function SeriesInfo() {
                             <Text>{series.name} - 第 {series.season} 季</Text>
                             <br />
                             <Text>{series.description}</Text>
+                            <br />
+                            {
+                                relationships.map((relationship) => {
+                                    return (
+                                        <div>
+                                            <Link to={"/staff/" + relationship.staff_id } style={{ textDecoration: 'none'}}>
+                                                <Text>{roleMap[relationship.role]}: {relationship.staff_name}</Text>
+                                                <br />
+                                            </Link>
+                                        </div>
+                                    )
+                                })
+                            }
                         </Col>
                     </Row>
                     <Row type={"flex"} justify={"center"}>
@@ -79,6 +100,13 @@ export default function SeriesInfo() {
                                     })
                                 }
                             </Row>
+                        </Col>
+                    </Row>
+                    <Row type={"flex"} justify={"center"}>
+                        <Col md={12} xs={24}>
+                            <Divider margin='12px' align='center'>
+                                评论列表
+                            </Divider>
                         </Col>
                     </Row>
                 </div>

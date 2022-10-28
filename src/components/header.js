@@ -15,6 +15,7 @@ export default function AppHeader() {
                     </Nav.Header>
                     <Nav.Item link={"/"} itemKey="Home" text="首页" icon={<IconHome size="large" />} />
                     <Nav.Item link={"/series"} itemKey="Live" text="剧集列表" icon={<IconLive size="large" />} />
+                    <Nav.Item link={"/wishlist"} text="想看" icon={<IconSetting size="large" />} />
                 </Nav>
             </div>
         </Header>

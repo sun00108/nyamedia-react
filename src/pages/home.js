@@ -1,7 +1,7 @@
 import React from 'react';
 import { Carousel, Typography, Space } from '@douyinfe/semi-ui';
 import { Col, Row } from '@douyinfe/semi-ui';
-import { Card } from '@douyinfe/semi-ui';
+import { Card, Image } from '@douyinfe/semi-ui';
 import { Divider } from '@douyinfe/semi-ui';
 import { Layout, Nav } from '@douyinfe/semi-ui';
 import { IconSemiLogo, IconBell, IconHelpCircle, IconBytedanceLogo, IconHome, IconLive, IconSetting } from '@douyinfe/semi-icons';
@@ -63,6 +63,66 @@ export default function Home() {
                     <Row type={"flex"} justify={"center"}>
                         <Col xs={24} xxl={12}>
                             <Title style={{ margin: '8px 0' }} >最受好评</Title>
+                        </Col>
+                    </Row>
+                    <Row type={"flex"} justify={"center"}>
+                        <Col xs={24} xxl={12}>
+                            <Title style={{ margin: '8px 0' }} >今日放映</Title>
+                        </Col>
+                    </Row>
+                    <Row gutter={16} type={"flex"} justify={"center"}>
+                        <Col xs={24} lg={8} xxl={4}>
+                            <Link to={"/series/3" } style={{ textDecoration: 'none'}}>
+                                <Card bordered={false}>
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <img src={"http://192.168.88.32:9000/nyamedia/series/9/poster/a0a4688fe8257232f0e2fa02a4fcf436.jpg"} style={{ maxWidth: '100%' }}/>
+                                        </Col>
+                                        <Col span={12}>
+                                            <Meta title={"中文名"} description={"剧集原名 - 第一季"} />
+                                            <Divider></Divider>
+                                            第 3 / 12 集 播出时间
+                                            <Title>21:00</Title>(GMT +9)
+                                            <Divider></Divider>
+                                            剧集介绍 - 限制行数
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Link>
+                        </Col>
+                        <Col xs={24} lg={8} xxl={4}>
+                            <Link to={"/series/3" } style={{ textDecoration: 'none'}}>
+                                <Card bordered={false}>
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <img src={"http://192.168.88.32:9000/nyamedia/series/9/poster/a0a4688fe8257232f0e2fa02a4fcf436.jpg"} style={{ maxWidth: '100%' }}/>
+                                        </Col>
+                                        <Col span={12}>
+                                            <Meta
+                                                title="Title"
+                                                description="Description"
+                                            />{"第3季"}
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Link>
+                        </Col>
+                        <Col xs={24} lg={8} xxl={4}>
+                            <Link to={"/series/3" } style={{ textDecoration: 'none'}}>
+                                <Card bordered={false}>
+                                    <Row gutter={16}>
+                                        <Col span={12}>
+                                            <img src={"http://192.168.88.32:9000/nyamedia/series/9/poster/a0a4688fe8257232f0e2fa02a4fcf436.jpg"} style={{ maxWidth: '100%' }}/>
+                                        </Col>
+                                        <Col span={12}>
+                                            <Meta
+                                                title="Title"
+                                                description="Description"
+                                            />{"第3季"}
+                                        </Col>
+                                    </Row>
+                                </Card>
+                            </Link>
                         </Col>
                     </Row>
                 </div>
