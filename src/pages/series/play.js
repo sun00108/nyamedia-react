@@ -56,7 +56,7 @@ export default function SeriesPlay() {
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
                             <Title>{series.name_cn}</Title>
-                            <Text>{series.name} - 第 {series.season} 季</Text>
+                            <Text>{series.name} - 第 {series.season} 季 - {process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash}</Text>
                             <br />
                             <Text>{series.description}</Text>
                         </Col>
