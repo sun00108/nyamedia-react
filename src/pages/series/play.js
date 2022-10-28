@@ -34,7 +34,7 @@ export default function SeriesPlay() {
         console.log(episodes[episode])
         const player = new Player({
             id: 'vs',
-            url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode].video_hash,
+            url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash,
             fluid: true
         })
     }
