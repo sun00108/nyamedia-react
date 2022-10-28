@@ -36,7 +36,7 @@ export default function SeriesPlay() {
             url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash,
             fluid: true
         })
-        console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash)
+        //console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash)
     }
 
     React.useEffect(() => {
