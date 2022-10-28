@@ -31,12 +31,12 @@ export default function SeriesPlay() {
     }
 
     if (episodes[episode-1] != null) {
-        console.log(episodes[episode])
         const player = new Player({
             id: 'vs',
             url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash,
             fluid: true
         })
+        console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash)
     }
 
     React.useEffect(() => {
@@ -56,7 +56,7 @@ export default function SeriesPlay() {
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
                             <Title>{series.name_cn}</Title>
-                            <Text>{series.name} - 第 {series.season} 季 - {process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash}</Text>
+                            <Text>{series.name} - 第 {series.season} 季</Text>
                             <br />
                             <Text>{series.description}</Text>
                         </Col>
