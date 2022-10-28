@@ -30,7 +30,7 @@ export default function SeriesPlay() {
         })
     }
 
-    if (episodes[episode] != null) {
+    if (episodes[episode-1] != null) {
         console.log(episodes[episode])
         const player = new Player({
             id: 'vs',
