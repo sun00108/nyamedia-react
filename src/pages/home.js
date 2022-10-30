@@ -71,11 +71,6 @@ export default function Home() {
                     </Row>
                     <Row type={"flex"} justify={"center"}>
                         <Col xs={24} xxl={12}>
-                            <Title style={{ margin: '8px 0' }} >最受好评</Title>
-                        </Col>
-                    </Row>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col xs={24} xxl={12}>
                             <Title style={{ margin: '8px 0' }} >今日放映</Title>
                         </Col>
                     </Row>
@@ -95,10 +90,8 @@ export default function Home() {
                                                             <Col span={12}>
                                                                 <Meta title={item.series_name_cn} description={item.series_name + " - 第" + item.series_season + "季"} />
                                                                 <Divider></Divider>
-                                                                第 3 / 12 集 播出时间
+                                                                播出时间
                                                                 <Title>{item.time}</Title>(GMT +9)
-                                                                <Divider></Divider>
-                                                                剧集介绍 - 限制行数
                                                             </Col>
                                                         </Row>
                                                     </Card>
