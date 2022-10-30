@@ -18,6 +18,9 @@ export default function SeriesAdd() {
     const [ seriesName, setSeriesName ] = React.useState("");
     const [ seriesNameCN, setSeriesNameCN ] = React.useState("");
     const [ seriesSeason, setSeriesSeason ] = React.useState("");
+    const [ seriesYear, setSeriesYear ] = React.useState("");
+    const [ seriesStatus, setSeriesStatus ] = React.useState("");
+    const [ seriesNSFW, setSeriesNSFW ] = React.useState("");
     const [ seriesDescription, setSeriesDescription ] = React.useState("");
     const [ seriesTMDBID, setSeriesTMDBID ] = React.useState("");
     const [ seriesBGMID, setSeriesBGMID ] = React.useState("");
@@ -28,6 +31,9 @@ export default function SeriesAdd() {
                 name: seriesName,
                 name_cn: seriesNameCN,
                 season: seriesSeason,
+                year: seriesYear,
+                status: seriesStatus,
+                nsfw: seriesNSFW,
                 description: seriesDescription,
                 tmdb_id: seriesTMDBID,
                 bgm_id: seriesBGMID
@@ -62,6 +68,14 @@ export default function SeriesAdd() {
                                 <Input placeholder={"剧集 TMDB ID"} onChange={(e) => setSeriesTMDBID(e)} />
                                 <br/><br/>
                                 <Input placeholder={"剧集 BGM ID"} onChange={(e) => setSeriesBGMID(e)} />
+                                <br/><br/>
+                                <Input placeholder={"剧集播出年份"} onChange={(e) => setSeriesYear(e)} />
+                                <br/><br/>
+                                0: 连载中, 1: 已完结
+                                <Input placeholder={"剧集状态"} onChange={(e) => setSeriesStatus(e)} />
+                                <br/><br/>
+                                0: 非NSFW, 1: NSFW
+                                <Input placeholder={"剧集 NSFW"} onChange={(e) => setSeriesNSFW(e)} />
                                 <br/><br/>
                                 <Button onClick={submitSeriesAdd}>添加剧集</Button>
                             </Card>
