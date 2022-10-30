@@ -8,6 +8,8 @@ import SeriesPlay from './pages/series/play'
 import WishList from './pages/wish/index'
 import StaffList from './pages/staff/index'
 import StaffInfo from './pages/staff/info'
+import OnAirIndex from "./pages/onair/index";
+import OnAirAdd from "./pages/onair/add";
 
 
 import SeriesAdd from './pages/series/add'
@@ -29,6 +31,8 @@ function App() {
               <Route path={'/staff/:id'} element={<StaffInfo />} />
               <Route path={'/staff/add'} element={<StaffAdd />} />
               <Route path={'/relationship/add'} element={<RelationshipAdd />} />
+              <Route path={'/onair'} element={<OnAirIndex />} />
+              <Route path={'/onair/add'} element={<OnAirAdd />} />
           </Routes>
         </Router>
       </Fragment>

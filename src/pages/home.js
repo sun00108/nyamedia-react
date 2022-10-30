@@ -20,6 +20,8 @@ export default function Home() {
     const [ latest, setLatest ] = React.useState([]);
     const [ poster, setPoster ] = React.useState({});
 
+    const [ onair, setOnAir ] = React.useState([]);
+
     const fetchLatestUpdate = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/latest').then( res => {
             setLatest(res.data.series)
@@ -27,8 +29,15 @@ export default function Home() {
         })
     }
 
+    const fetchOnAir = () => {
+        axios.get( process.env.REACT_APP_API_HOST + '/api/v1/onairseries/today').then( res => {
+            setOnAir(res.data.onairseries)
+        })
+    }
+
     React.useEffect(() => {
         fetchLatestUpdate();
+        fetchOnAir();
     },[])
 
     return (
@@ -71,59 +80,31 @@ export default function Home() {
                         </Col>
                     </Row>
                     <Row gutter={16} type={"flex"} justify={"center"}>
-                        <Col xs={24} lg={8} xxl={4}>
-                            <Link to={"/series/3" } style={{ textDecoration: 'none'}}>
-                                <Card bordered={false}>
-                                    <Row gutter={16}>
-                                        <Col span={12}>
-                                            <img src={"http://192.168.88.32:9000/nyamedia/series/9/poster/a0a4688fe8257232f0e2fa02a4fcf436.jpg"} style={{ maxWidth: '100%' }}/>
-                                        </Col>
-                                        <Col span={12}>
-                                            <Meta title={"中文名"} description={"剧集原名 - 第一季"} />
-                                            <Divider></Divider>
-                                            第 3 / 12 集 播出时间
-                                            <Title>21:00</Title>(GMT +9)
-                                            <Divider></Divider>
-                                            剧集介绍 - 限制行数
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Link>
-                        </Col>
-                        <Col xs={24} lg={8} xxl={4}>
-                            <Link to={"/series/3" } style={{ textDecoration: 'none'}}>
-                                <Card bordered={false}>
-                                    <Row gutter={16}>
-                                        <Col span={12}>
-                                            <img src={"http://192.168.88.32:9000/nyamedia/series/9/poster/a0a4688fe8257232f0e2fa02a4fcf436.jpg"} style={{ maxWidth: '100%' }}/>
-                                        </Col>
-                                        <Col span={12}>
-                                            <Meta
-                                                title="Title"
-                                                description="Description"
-                                            />{"第3季"}
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Link>
-                        </Col>
-                        <Col xs={24} lg={8} xxl={4}>
-                            <Link to={"/series/3" } style={{ textDecoration: 'none'}}>
-                                <Card bordered={false}>
-                                    <Row gutter={16}>
-                                        <Col span={12}>
-                                            <img src={"http://192.168.88.32:9000/nyamedia/series/9/poster/a0a4688fe8257232f0e2fa02a4fcf436.jpg"} style={{ maxWidth: '100%' }}/>
-                                        </Col>
-                                        <Col span={12}>
-                                            <Meta
-                                                title="Title"
-                                                description="Description"
-                                            />{"第3季"}
-                                        </Col>
-                                    </Row>
-                                </Card>
-                            </Link>
-                        </Col>
+                        {
+                            onair.map((item) => {
+                                return (
+                                    <Col xs={24} lg={8} xxl={4}>
+                                        <Link to={"/series/" + item.series_id } style={{ textDecoration: 'none'}}>
+                                            <Card bordered={false}>
+                                                <Row gutter={16}>
+                                                    <Col span={12}>
+                                                        <img src={ process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + item.series_id + "/poster/" + item.series_poster  + ".jpg" } style={{ maxWidth: '100%' }}/>
+                                                    </Col>
+                                                    <Col span={12}>
+                                                        <Meta title={item.series_name_cn} description={item.series_name + " - 第" + item.series_season + "季"} />
+                                                        <Divider></Divider>
+                                                        第 3 / 12 集 播出时间
+                                                        <Title>{item.time}</Title>(GMT +9)
+                                                        <Divider></Divider>
+                                                        剧集介绍 - 限制行数
+                                                    </Col>
+                                                </Row>
+                                            </Card>
+                                        </Link>
+                                    </Col>
+                                )
+                            })
+                        }
                     </Row>
                 </div>
             </Content>
