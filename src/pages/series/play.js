@@ -34,9 +34,15 @@ export default function SeriesPlay() {
         const player = new Player({
             id: 'vs',
             url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash,
+            lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
             fluid: true
         })
         //console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash)
+        player.on('play', function() {
+            setInterval(() => {
+                localStorage.setItem("nyavideo_" + id + "_" + episode, player.currentTime)
+            }, 10000)
+        })
     }
 
     React.useEffect(() => {
