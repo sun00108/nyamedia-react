@@ -85,7 +85,7 @@ export default function Home() {
                                 {
                                     onair.map((item) => {
                                         return (
-                                            <Col xs={24} lg={8} xxl={4}>
+                                            <Col xs={24} lg={8}>
                                                 <Link to={"/series/" + item.series_id } style={{ textDecoration: 'none'}}>
                                                     <Card bordered={false}>
                                                         <Row gutter={16}>
