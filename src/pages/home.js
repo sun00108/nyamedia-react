@@ -80,31 +80,35 @@ export default function Home() {
                         </Col>
                     </Row>
                     <Row gutter={16} type={"flex"} justify={"center"}>
-                        {
-                            onair.map((item) => {
-                                return (
-                                    <Col xs={24} lg={8} xxl={4}>
-                                        <Link to={"/series/" + item.series_id } style={{ textDecoration: 'none'}}>
-                                            <Card bordered={false}>
-                                                <Row gutter={16}>
-                                                    <Col span={12}>
-                                                        <img src={ process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + item.series_id + "/poster/" + item.series_poster  + ".jpg" } style={{ maxWidth: '100%' }}/>
-                                                    </Col>
-                                                    <Col span={12}>
-                                                        <Meta title={item.series_name_cn} description={item.series_name + " - 第" + item.series_season + "季"} />
-                                                        <Divider></Divider>
-                                                        第 3 / 12 集 播出时间
-                                                        <Title>{item.time}</Title>(GMT +9)
-                                                        <Divider></Divider>
-                                                        剧集介绍 - 限制行数
-                                                    </Col>
-                                                </Row>
-                                            </Card>
-                                        </Link>
-                                    </Col>
-                                )
-                            })
-                        }
+                        <Col xs={24} xxl={12}>
+                            <Row type={"flex"} justify={"center"}>
+                                {
+                                    onair.map((item) => {
+                                        return (
+                                            <Col xs={24} lg={8} xxl={4}>
+                                                <Link to={"/series/" + item.series_id } style={{ textDecoration: 'none'}}>
+                                                    <Card bordered={false}>
+                                                        <Row gutter={16}>
+                                                            <Col span={12}>
+                                                                <img src={ process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + item.series_id + "/poster/" + item.series_poster  + ".jpg" } style={{ maxWidth: '100%' }}/>
+                                                            </Col>
+                                                            <Col span={12}>
+                                                                <Meta title={item.series_name_cn} description={item.series_name + " - 第" + item.series_season + "季"} />
+                                                                <Divider></Divider>
+                                                                第 3 / 12 集 播出时间
+                                                                <Title>{item.time}</Title>(GMT +9)
+                                                                <Divider></Divider>
+                                                                剧集介绍 - 限制行数
+                                                            </Col>
+                                                        </Row>
+                                                    </Card>
+                                                </Link>
+                                            </Col>
+                                        )
+                                    })
+                                }
+                            </Row>
+                        </Col>
                     </Row>
                 </div>
             </Content>
