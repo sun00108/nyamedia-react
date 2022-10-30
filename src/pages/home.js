@@ -18,14 +18,11 @@ export default function Home() {
     const { Header, Footer, Content } = Layout;
 
     const [ latest, setLatest ] = React.useState([]);
-    const [ poster, setPoster ] = React.useState({});
-
     const [ onair, setOnAir ] = React.useState([]);
 
     const fetchLatestUpdate = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/latest').then( res => {
             setLatest(res.data.series)
-            setPoster(res.data.posters)
         })
     }
 
@@ -56,7 +53,7 @@ export default function Home() {
                                 return (
                                     <Col xs={12} lg={8} xxl={2}>
                                         <Link to={"/series/" + item.id} style={{ textDecoration: 'none'}}>
-                                            <Card cover={<img src={ process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + item.id + "/poster/" + poster[item.id]  + ".jpg"} width={300} />}
+                                            <Card cover={<img src={ process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + item.id + "/poster/" + item.poster + ".jpg"} width={300} />}
                                                   bordered={false} shadows='hover'>
                                                 <Meta
                                                     title={item.name}

@@ -31,7 +31,7 @@ export default function SeriesIndex() {
                 <div className="grid">
                     <Row type={"flex"} justify={"center"}>
                         <Col xs={24} xxl={12}>
-                            <Title style={{ margin: '8px 0' }} >剧集列表 - 施工中</Title>
+                            <Title style={{ margin: '8px 0' }} >剧集列表</Title>
                         </Col>
                     </Row>
                     <Row gutter={16} type={"flex"} justify={"center"}>
