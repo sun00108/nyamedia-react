@@ -81,7 +81,7 @@ export default function SeriesPlay() {
                                     episodes.map((item) => {
                                         return (
                                             <Col md={2} xs={4}>
-                                                <Link to={"/series/" + id + "/play/" + item.episode} onClick={this.forceUpdate} style={{ textDecoration: 'none'}}>
+                                                <Link to={"/series/" + id + "/play/" + item.episode} onClick={() => window.location.reload()} style={{ textDecoration: 'none'}}>
                                                     {
                                                         item.episode == episode ? (
                                                             <Button block>{item.episode}</Button>
