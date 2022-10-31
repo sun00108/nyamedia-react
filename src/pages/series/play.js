@@ -35,7 +35,6 @@ export default function SeriesPlay() {
     }
 
     if (episodes.length > 0) {
-        console.log(episodes)
         //console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash)
         player = new Player({
             id: 'vs',
