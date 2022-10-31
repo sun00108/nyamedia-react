@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import Player from 'xgplayer'
 
 import {Col, Row, Card, Divider, Button} from '@douyinfe/semi-ui';
@@ -22,6 +22,10 @@ export default function SeriesPlay() {
     const [ images, setImages ] = React.useState({});
     const [ episodes, setEpisodes ] = React.useState([]);
 
+    let player
+
+    const init = useRef(true)
+
     const fetchSeries = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/' + id).then( res => {
             setSeries(res.data.series)
@@ -30,14 +34,15 @@ export default function SeriesPlay() {
         })
     }
 
-    if (episodes[episode-1] != null) {
-        const player = new Player({
+    if (episodes.length > 0) {
+        console.log(episodes)
+        //console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash)
+        player = new Player({
             id: 'vs',
-            url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash,
+            url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash,
             lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
             fluid: true
         })
-        //console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/video/" + episodes[episode-1].video_hash)
         player.on('play', function() {
             setInterval(() => {
                 localStorage.setItem("nyavideo_" + id + "_" + episode, player.currentTime)
@@ -48,6 +53,21 @@ export default function SeriesPlay() {
     React.useEffect(() => {
         fetchSeries()
     },[])
+
+    React.useEffect(() => {
+        if (!init.current) {
+            console.log("episode changed")
+            player.src = ""
+            player.destroy()
+            player = new Player({
+                id: 'vs',
+                url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash,
+                lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
+                fluid: true
+            })
+        }
+        init.current = false
+    },[episode])
 
     return (
         <Layout className="components-layout-demo">
@@ -81,7 +101,7 @@ export default function SeriesPlay() {
                                     episodes.map((item) => {
                                         return (
                                             <Col md={2} xs={4}>
-                                                <a href={"/series/" + id + "/play/" + item.episode} style={{ textDecoration: 'none'}}>
+                                                <Link to={"/series/" + id + "/play/" + item.episode} style={{ textDecoration: 'none'}}>
                                                     {
                                                         item.episode == episode ? (
                                                             <Button block>{item.episode}</Button>
@@ -90,7 +110,7 @@ export default function SeriesPlay() {
                                                         )
                                                     }
 
-                                                </a>
+                                                </Link>
                                             </Col>
                                         )
                                     })
