@@ -51,10 +51,14 @@ export default function SeriesInfo() {
                 <div className="grid grid-flex">
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
-                            <Card
-                                bordered={false}
-                                cover={<img src={process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/backdrop/" + images["backdrop"] + ".jpg"} />}>
-                            </Card>
+                            {
+                                images["poster"] ?
+                                    <Card
+                                        bordered={false}
+                                        cover={<img src={process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/backdrop/" + images["backdrop"] + ".jpg"} />}>
+                                    </Card>
+                                    : <Card bordered={false}></Card>
+                            }
                         </Col>
                     </Row>
                     <Row type={"flex"} justify={"center"}>

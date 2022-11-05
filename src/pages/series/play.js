@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import Player from 'xgplayer'
 
-import {Col, Row, Card, Divider, Button} from '@douyinfe/semi-ui';
+import {Col, Row, Card, Divider, Button, Input} from '@douyinfe/semi-ui';
 
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -36,10 +36,16 @@ export default function SeriesPlay() {
 
     if (episodes.length > 0) {
         //console.log(process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash)
+        let subtitle = null
+        if (episodes[episode-1].subtitle != null) {
+            subtitle = [ { src: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/subtitle/" + episodes[episode-1].subtitle.zh_CN_hash, label: '中文简体', srclang: "zh", kind: 'subtitles', default: true } ]
+        }
         player = new Player({
             id: 'vs',
             url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash,
             lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
+            textTrack: subtitle,
+            playsinline: true,
             fluid: true
         })
         player.on('play', function() {
@@ -58,10 +64,16 @@ export default function SeriesPlay() {
             console.log("episode changed")
             player.src = ""
             player.destroy()
+            let subtitle = null
+            if (episodes[episode-1].subtitle != null) {
+                subtitle = [ { src: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/subtitle/" + episodes[episode-1].subtitle.zh_CN_hash, label: '中文简体', srclang: "zh", kind: 'subtitles', default: true } ]
+            }
             player = new Player({
                 id: 'vs',
                 url: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/video/" + episodes[episode-1].video_hash,
                 lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
+                textTrack: subtitle,
+                playsinline: true,
                 fluid: true
             })
         }
@@ -76,6 +88,11 @@ export default function SeriesPlay() {
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
                             <Card bordered={false}><div id="vs"></div></Card>
+                        </Col>
+                    </Row>
+                    <Row type={"flex"} justify={"center"}>
+                        <Col md={12} xs={24}>
+                            <Input preventScroll={true}></Input>
                         </Col>
                     </Row>
                     <Row type={"flex"} justify={"center"}>
