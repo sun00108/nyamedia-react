@@ -92,11 +92,6 @@ export default function SeriesPlay() {
                     </Row>
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
-                            <Input preventScroll={true}></Input>
-                        </Col>
-                    </Row>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col md={12} xs={24}>
                             <Title>{series.name_cn}</Title>
                             <Text>{series.name} - 第 {series.season} 季</Text>
                             <br />
