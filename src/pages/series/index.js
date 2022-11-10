@@ -36,11 +36,11 @@ export default function SeriesIndex() {
                     </Row>
                     <Row type={"flex"} justify={"center"}>
                         <Col xs={24} xxl={18}>
-                            <Row gutter={16}>
+                            <Row gutter={16} type={"flex"}>
                                 {
                                     seriesList.map((item) => {
                                         return (
-                                            <Col xs={12} lg={8} xxl={4}>
+                                            <Col xs={12} lg={8} xxl={3}>
                                                 <Link to={"/series/" + item.id} style={{ textDecoration: 'none'}}>
                                                     <Card cover={<img src={ process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + item.id + "/poster/" + item.poster + ".jpg"} width={300} />}
                                                           bordered={false} shadows='hover'>
