@@ -10,7 +10,8 @@ import StaffList from './pages/staff/index'
 import StaffInfo from './pages/staff/info'
 import OnAirIndex from "./pages/onair/index";
 import OnAirAdd from "./pages/onair/add";
-
+import TagList from "./pages/tag/index";
+import SeriesEdit from './pages/series/edit'
 
 import SeriesAdd from './pages/series/add'
 import StaffAdd from './pages/staff/add'
@@ -33,6 +34,8 @@ function App() {
               <Route path={'/relationship/add'} element={<RelationshipAdd />} />
               <Route path={'/onair'} element={<OnAirIndex />} />
               <Route path={'/onair/add'} element={<OnAirAdd />} />
+              <Route path={'/tag'} element={<TagList />} />
+              <Route path={'/series/:id/edit'} element={<SeriesEdit />} />
           </Routes>
         </Router>
       </Fragment>

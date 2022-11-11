@@ -1,5 +1,5 @@
 import React from 'react';
-import {Carousel, Typography, Space, Button, Tag} from '@douyinfe/semi-ui';
+import {Carousel, Typography, Space, Button, Transfer, Notification, Tag} from '@douyinfe/semi-ui';
 import { Col, Row } from '@douyinfe/semi-ui';
 import { Card } from '@douyinfe/semi-ui';
 import { Divider } from '@douyinfe/semi-ui';
@@ -13,18 +13,16 @@ import { useParams } from "react-router-dom";
 
 import AppHeader from "../../components/header";
 
-export default function SeriesInfo() {
+export default function SeriesEdit() {
 
     const { id } = useParams();
+
+    const [ reload, setReload ] = React.useState(false);
 
     const [ series, setSeries ] = React.useState({});
     const [ images, setImages ] = React.useState({});
     const [ relationships, setRelationships ] = React.useState([]);
     const [ episodes, setEpisodes ] = React.useState([]);
-
-    const [ tags, setTags ] = React.useState([]); // tags 为系统内所有标签
-    const [ taggings, setTaggings ] = React.useState([]); // taggings 为此剧集的标签关系
-    const [ taggingsOld, setTaggingsOld ] = React.useState([]); // taggingsOld 为此剧集的旧标签关系
 
     const fetchSeries = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/' + id).then( res => {
@@ -34,6 +32,10 @@ export default function SeriesInfo() {
             setRelationships(res.data.relationships)
         })
     }
+
+    const [ tags, setTags ] = React.useState([]); // tags 为系统内所有标签
+    const [ taggings, setTaggings ] = React.useState([]); // taggings 为此剧集的标签关系
+    const [ taggingsOld, setTaggingsOld ] = React.useState([]); // taggingsOld 为此剧集的旧标签关系
 
     const fetchTags = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/tags').then( res => {
@@ -48,12 +50,28 @@ export default function SeriesInfo() {
         })
     }
 
+    const submitTaggingsUpdate = () => {
+        axios.post( process.env.REACT_APP_API_HOST + '/api/v1/taggings/update', {
+            series_id: id,
+            taggings: taggings
+        }).then( res => {
+            Notification.open({
+                title: 'TAG更新成功',
+                content: 'TAG已更新成功',
+                duration: 3,
+            })
+            setReload(!reload)
+        })
+    }
+
     React.useEffect(() => {
         fetchSeries()
+    }, [])
+
+    React.useEffect(() => {
         fetchTags()
         fetchTaggings()
-
-    }, [])
+    }, [reload])
 
     const { Header, Footer, Content } = Layout;
     const { Title, Paragraph, Text } = Typography;
@@ -117,12 +135,12 @@ export default function SeriesInfo() {
                                 tagData.length > 0 ?
                                     <Space>
                                         {taggingsOld.map((tagging) => {
-                                            return (
-                                                <Tag>{tagData[tagging-1].label}</Tag>
-                                            )
-                                        })}
+                                        return (
+                                        <Tag>{tagData[tagging-1].label}</Tag>
+                                        )
+                                    })}
                                     </Space>
-                                    : <div></div>
+                                 : <div></div>
                             }
                         </Col>
                     </Row>
@@ -155,6 +173,27 @@ export default function SeriesInfo() {
                             <Divider margin='12px' align='center'>
                                 评论列表
                             </Divider>
+                        </Col>
+                    </Row>
+                    <Row type={"flex"} justify={"center"}>
+                        <Col md={12} xs={24}>
+                            <Row>
+                                <Col span={18}>
+                                    {
+                                       tagData.length > 0 ?
+                                           <Transfer
+                                               style={{ width: 568, height: 416 }}
+                                               dataSource={tagData}
+                                               defaultValue={taggings}
+                                               onChange={(values, items) => {setTaggings(values)}}
+                                           />
+                                           : <div></div>
+                                    }
+                                </Col>
+                                <Col span={6}>
+                                    <Button onClick={submitTaggingsUpdate}>更新TAG列表</Button>
+                                </Col>
+                            </Row>
                         </Col>
                     </Row>
                 </div>
