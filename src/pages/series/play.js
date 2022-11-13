@@ -21,6 +21,7 @@ export default function SeriesPlay() {
     const [ series, setSeries ] = React.useState({});
     const [ images, setImages ] = React.useState({});
     const [ episodes, setEpisodes ] = React.useState([]);
+    const [ seriesSimilar, setSeriesSimilar ] = React.useState([]);
 
     let player
 
@@ -31,6 +32,12 @@ export default function SeriesPlay() {
             setSeries(res.data.series)
             setImages(res.data.images)
             setEpisodes(res.data.episodes)
+        })
+    }
+
+    const fetchSeriesSimilar = () => {
+        axios.get( process.env.REACT_APP_API_HOST + '/api/v1/taggings/match?series_id=' + id).then( res => {
+            setSeriesSimilar(res.data.data)
         })
     }
 
@@ -57,6 +64,7 @@ export default function SeriesPlay() {
 
     React.useEffect(() => {
         fetchSeries()
+        fetchSeriesSimilar()
     },[])
 
     React.useEffect(() => {
@@ -145,6 +153,25 @@ export default function SeriesPlay() {
                                     })
                                 }
                             </Row>
+                            <Divider margin='12px' align='center'>
+                            </Divider>
+                        </Card>
+                        <Card bordered={false}>
+                            <Divider margin='12px' align='center'>
+                                相关剧集
+                            </Divider>
+                            {
+                                seriesSimilar.map((item) => {
+                                    return (
+                                        <div>
+                                            <Card>
+                                                <Text>{item.series_name_cn} - 第 {item.series_season} 季</Text>
+                                            </Card>
+                                            <br />
+                                        </div>
+                                    )
+                                })
+                            }
                             <Divider margin='12px' align='center'>
                             </Divider>
                         </Card>
