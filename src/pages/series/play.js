@@ -86,23 +86,19 @@ export default function SeriesPlay() {
         margin: '0 auto',
         display: 'flex',
         justifyContent: 'center',
-        boxSizing: 'content-box',
         position: 'relative',
-        width: 'auto',
-        padding: '0 10px'
     }
 
 
     const leftStyle = {
-        width: "calc(100% - 320px)",
-        minWidth: 800,
-        maxWidth: 1600
+        width: 'calc(100% - 400px)',
+        minWidth: 600,
+        maxWidth: "56vw"
     }
 
     const rightStyle = {
-        width: '350px',
+        width: '400px',
         flex: 'none',
-        marginLeft: '30px',
         position: 'relative'
     }
 
