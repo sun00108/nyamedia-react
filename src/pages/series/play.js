@@ -80,38 +80,60 @@ export default function SeriesPlay() {
         init.current = false
     },[episode])
 
+    const wrapStyle = {
+        maxWidth: '2540px',
+        minWidth: '1080px',
+        margin: '0 auto',
+        display: 'flex',
+        justifyContent: 'center',
+        boxSizing: 'content-box',
+        position: 'relative',
+        width: 'auto',
+        padding: '0 10px'
+    }
+
+
+    const leftStyle = {
+        width: "calc(100% - 320px)",
+        minWidth: 800,
+        maxWidth: 1600
+    }
+
+    const rightStyle = {
+        width: '350px',
+        flex: 'none',
+        marginLeft: '30px',
+        position: 'relative'
+    }
+
     return (
         <Layout className="components-layout-demo">
             <AppHeader />
             <Content>
-                <div className={"grid grid-flex"}>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col md={12} xs={24}>
+                <div style={wrapStyle}>
+                    <div style={leftStyle}>
+                        <div className={"grid grid-flex"}>
+                            <Card bordered={false}>
+                                <Title>{series.name_cn}</Title>
+                                <Text>{series.name} - 第 {series.season} 季</Text>
+                            </Card>
                             <Card bordered={false}><div id="vs"></div></Card>
-                        </Col>
-                    </Row>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col md={12} xs={24}>
-                            <Title>{series.name_cn}</Title>
-                            <Text>{series.name} - 第 {series.season} 季</Text>
-                            <br />
                             <Text>{series.description}</Text>
-                        </Col>
-                    </Row>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col md={12} xs={24}>
+                            <Divider margin='12px' align='center'>
+                                剧集信息
+                            </Divider>
+                        </div>
+                    </div>
+                    <div style={rightStyle}>
+                        <Card bordered={false}>
                             <Divider margin='12px' align='center'>
                                 播放列表
                             </Divider>
-                        </Col>
-                    </Row>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col md={12} xs={24}>
                             <Row gutter={[16, 16]}>
                                 {
                                     episodes.map((item) => {
                                         return (
-                                            <Col md={2} xs={4}>
+                                            <Col span={6}>
                                                 <Link to={"/series/" + id + "/play/" + item.episode} style={{ textDecoration: 'none'}}>
                                                     {
                                                         item.episode == episode ? (
@@ -127,16 +149,10 @@ export default function SeriesPlay() {
                                     })
                                 }
                             </Row>
-                        </Col>
-                    </Row>
-                    <Row type={"flex"} justify={"center"}>
-                        <Col md={12} xs={24}>
                             <Divider margin='12px' align='center'>
-                                剧集信息
                             </Divider>
-                        </Col>
-                    </Row>
-
+                        </Card>
+                    </div>
                 </div>
             </Content>
         </Layout>
