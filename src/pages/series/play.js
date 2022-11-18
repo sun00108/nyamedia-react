@@ -1,7 +1,7 @@
 import React, {useRef} from 'react';
 import Player from 'xgplayer'
 
-import {Col, Row, Card, Divider, Button, Input} from '@douyinfe/semi-ui';
+import {Col, Row, Card, Divider, Button, Input, Space, Tag} from '@douyinfe/semi-ui';
 
 import axios from 'axios';
 import { Link } from "react-router-dom";
@@ -23,6 +23,9 @@ export default function SeriesPlay() {
     const [ episodes, setEpisodes ] = React.useState([]);
     const [ seriesSimilar, setSeriesSimilar ] = React.useState([]);
 
+    const [ tags, setTags ] = React.useState([]); // tags 为系统内所有标签
+    const [ taggings, setTaggings ] = React.useState([]); // taggings 为此剧集的标签关系
+
     let player
 
     const init = useRef(true)
@@ -34,6 +37,27 @@ export default function SeriesPlay() {
             setEpisodes(res.data.episodes)
         })
     }
+
+    const fetchTags = () => {
+        axios.get( process.env.REACT_APP_API_HOST + '/api/v1/tags').then( res => {
+            setTags(res.data)
+        })
+    }
+
+    const fetchTaggings = () => {
+        axios.get( process.env.REACT_APP_API_HOST + '/api/v1/taggings/' + id).then( res => {
+            setTaggings(res.data)
+        })
+    }
+
+    const tagData = tags.map((v) => {
+        return {
+            label: v.name,
+            value: v.id,
+            disabled: false,
+            key: v.id
+        };
+    })
 
     const fetchSeriesSimilar = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/taggings/match?series_id=' + id).then( res => {
@@ -65,6 +89,9 @@ export default function SeriesPlay() {
     React.useEffect(() => {
         fetchSeries()
         fetchSeriesSimilar()
+        fetchTags()
+        fetchTaggings()
+        console.log(window.innerWidth)
     },[])
 
     React.useEffect(() => {
@@ -88,24 +115,28 @@ export default function SeriesPlay() {
         init.current = false
     },[episode])
 
+    // 减去滚动条宽度，虽然不准确，但是能用
+    const width = window.innerWidth - 17
+
     const wrapStyle = {
         maxWidth: '2540px',
-        minWidth: '1080px',
+        minWidth: width > 820? '1080px' : width,
         margin: '0 auto',
         display: 'flex',
+        flexDirection: width > 1080 ? 'row' : 'column',
         justifyContent: 'center',
         position: 'relative',
     }
 
 
     const leftStyle = {
-        width: 'calc(100% - 400px)',
-        minWidth: 600,
+        width: width > 820 ? 'calc(100% - 400px)' : width,
+        minWidth: width > 820 ? 600 : width,
         maxWidth: "56vw"
     }
 
     const rightStyle = {
-        width: '400px',
+        width: width > 820 ? '400px' : width,
         flex: 'none',
         position: 'relative'
     }
@@ -121,11 +152,24 @@ export default function SeriesPlay() {
                                 <Title>{series.name_cn}</Title>
                                 <Text>{series.name} - 第 {series.season} 季</Text>
                             </Card>
-                            <Card bordered={false}><div id="vs"></div></Card>
+                            <div id="vs"></div>
                             <Text>{series.description}</Text>
                             <Divider margin='12px' align='center'>
                                 剧集信息
                             </Divider>
+                            <Card bordered={false}>
+                                {
+                                    tagData.length > 0 ?
+                                        <Space>
+                                            {taggings.map((item) => {
+                                                return (
+                                                    <Tag>{tagData[item.tag_id - 1].label} - {item.weight}</Tag>
+                                                )
+                                            })}
+                                        </Space>
+                                        : <div></div>
+                                }
+                            </Card>
                         </div>
                     </div>
                     <div style={rightStyle}>
@@ -163,12 +207,12 @@ export default function SeriesPlay() {
                             {
                                 seriesSimilar.map((item) => {
                                     return (
-                                        <div>
+                                        <Link to={"/series/" + item.series_id} style={{ textDecoration: 'none'}}>
                                             <Card>
                                                 <Text>{item.series_name_cn} - 第 {item.series_season} 季</Text>
                                             </Card>
                                             <br />
-                                        </div>
+                                        </Link>
                                     )
                                 })
                             }

@@ -46,7 +46,7 @@ export default function SeriesEdit() {
     const fetchTaggings = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/taggings/' + id).then( res => {
             setTaggings(res.data.map(i => i.tag_id))
-            setTaggingsOld(res.data.map(i => i.tag_id))
+            setTaggingsOld(res.data)
         })
     }
 
@@ -134,9 +134,9 @@ export default function SeriesEdit() {
                             {
                                 tagData.length > 0 ?
                                     <Space>
-                                        {taggingsOld.map((tagging) => {
+                                        {taggingsOld.map((item) => {
                                         return (
-                                        <Tag>{tagData[tagging-1].label}</Tag>
+                                        <Tag>{tagData[item.tag_id-1].label} - {item.weight}</Tag>
                                         )
                                     })}
                                     </Space>
