@@ -12,8 +12,10 @@ import OnAirIndex from "./pages/onair/index";
 import OnAirAdd from "./pages/onair/add";
 import TagList from "./pages/tag/index";
 import SeriesEdit from './pages/series/edit'
+import StreamPlay from './pages/stream/play'
 
 import SeriesAdd from './pages/series/add'
+import StreamAdd from './pages/stream/add'
 import StaffAdd from './pages/staff/add'
 import RelationshipAdd from "./pages/relationship/add";
 
@@ -27,6 +29,8 @@ function App() {
               <Route path={'/series/:id'} element={<SeriesInfo />} />
               <Route path={'/series/:id/play/:episode'} element={<SeriesPlay />} />
               <Route path={'/admin/series/add'} element={<SeriesAdd />} />
+              <Route path={'/stream/:id'} element={<StreamPlay />} />
+              <Route path={'/admin/stream/add'} element={<StreamAdd />} />
               <Route path={'/wishlist'} element={<WishList />} />
               <Route path={'/staff'} element={<StaffList />} />
               <Route path={'/staff/:id'} element={<StaffInfo />} />

@@ -14,7 +14,8 @@
     "react-router-dom": "^6.4.1",
     "react-scripts": "5.0.1",
     "web-vitals": "^2.1.4",
-    "xgplayer": "^2.31.8"
+    "xgplayer": "^2.31.8",
+    "xgplayer-hls.js": "^2.6.3"
   },
   "scripts": {
     "start": "react-scripts start",
