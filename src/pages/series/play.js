@@ -77,7 +77,13 @@ export default function SeriesPlay() {
             lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
             textTrack: subtitle,
             playsinline: true,
-            fluid: true
+            fluid: true,
+            screenShot: {
+                saveImg: true,
+                quality: 0.92,
+                type: 'image/png',
+                format: '.png'
+            }
         })
         player.on('play', function() {
             setInterval(() => {
@@ -109,7 +115,13 @@ export default function SeriesPlay() {
                 lastPlayTime: localStorage.getItem("nyavideo_" + id + "_" + episode) != null ? localStorage.getItem("nyavideo_" + id + "_" + episode) : 0,
                 textTrack: subtitle,
                 playsinline: true,
-                fluid: true
+                fluid: true,
+                screenShot: {
+                    saveImg: true,
+                    quality: 0.92,
+                    type: 'image/png',
+                    format: '.png'
+                }
             })
         }
         init.current = false
