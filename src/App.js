@@ -13,7 +13,9 @@ import OnAirAdd from "./pages/onair/add";
 import TagList from "./pages/tag/index";
 import SeriesEdit from './pages/series/edit'
 import StreamPlay from './pages/stream/play'
-import MovieList from './pages/movie/index'
+import MovieList from './pages/movie/index';
+import AuditoriumList from "./pages/auditorium/index";
+import AuditoriumPlay from "./pages/auditorium/play";
 
 import SeriesAdd from './pages/series/add'
 import StreamAdd from './pages/stream/add'
@@ -38,6 +40,8 @@ function App() {
               <Route path={'/admin/stream/add'} element={<StreamAdd />} />
               <Route path={'/admin/movie/add'} element={<MovieAdd />} />
               <Route path={'/wishlist'} element={<WishList />} />
+              <Route path={'/auditorium/:id'} element={<AuditoriumPlay />} />
+              <Route path={'/auditorium'} element={<AuditoriumList />} />
               <Route path={'/staff'} element={<StaffList />} />
               <Route path={'/staff/:id'} element={<StaffInfo />} />
               <Route path={'/staff/add'} element={<StaffAdd />} />
