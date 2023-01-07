@@ -20,6 +20,8 @@ import StreamAdd from './pages/stream/add'
 import MovieAdd from './pages/movie/add'
 import StaffAdd from './pages/staff/add'
 import RelationshipAdd from "./pages/relationship/add";
+import SubscriptionList from "./pages/subscription/index";
+import SubscriptionAdd from "./pages/subscription/add";
 
 function App() {
   return (
@@ -44,6 +46,8 @@ function App() {
               <Route path={'/onair/add'} element={<OnAirAdd />} />
               <Route path={'/tag'} element={<TagList />} />
               <Route path={'/series/:id/edit'} element={<SeriesEdit />} />
+              <Route path={'/admin/subscription'} element={<SubscriptionList />} />
+              <Route path={'/admin/subscription/add'} element={<SubscriptionAdd />} />
           </Routes>
         </Router>
       </Fragment>

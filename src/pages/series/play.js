@@ -1,5 +1,6 @@
 import React, {useRef} from 'react';
 import Player from 'xgplayer'
+import '../../libs/playerVideoToGif.js'
 
 import {Col, Row, Card, Divider, Button, Input, Space, Tag} from '@douyinfe/semi-ui';
 
@@ -83,7 +84,8 @@ export default function SeriesPlay() {
                 quality: 0.92,
                 type: 'image/png',
                 format: '.png'
-            }
+            },
+            playerVideoToGif: true
         })
         player.on('play', function() {
             setInterval(() => {
@@ -97,7 +99,6 @@ export default function SeriesPlay() {
         fetchSeriesSimilar()
         fetchTags()
         fetchTaggings()
-        console.log(window.innerWidth)
     },[])
 
     React.useEffect(() => {
@@ -121,7 +122,8 @@ export default function SeriesPlay() {
                     quality: 0.92,
                     type: 'image/png',
                     format: '.png'
-                }
+                },
+                playerVideoToGif: true
             })
         }
         init.current = false
