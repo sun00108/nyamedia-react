@@ -24,38 +24,52 @@ export default function AuditoriumPlay() {
     const init = useRef(true)
 
     const [ video, setVideo ] = React.useState({});
+    const [ username, setUsername ] = React.useState("");
+    const [ message, setMessage ] = React.useState("");
 
     const socket = io(process.env.REACT_APP_SOCKET_HOST);
 
     if (socket) {
         // 放映室当前信息 - 初始化时使用
-        socket.on('auditorium_info', function(data) {
-            console.log('auditorium_info', data);
+        socket.on('auditorium_guest_info', function(data) {
+            console.log('放映室初始化成功：', data);
             setVideo(data)
         })
 
-        // 放映室数据同步 - 房主操作时使用
-        socket.on('auditorium_sync', function(data) {
-            console.log("auditorium_sync")
-            console.log(data)
-        })
-
-        // 放映室视频切换 - 房主操作时使用
-        socket.on('auditorium_switch', function(data) {
-            console.log("auditorium_switch")
+        // 放映室数据同步 - 房主操作时使用（播放 / 暂停 / 跳转时间）
+        socket.on('auditorium_guest_sync', function(data) {
+            console.log("房主操作同步：")
             console.log(data)
         })
 
         // 放映室聊天框 - 所有人均可向服务器发送
-        socket.on('auditorium_chat', function(data) {
-            console.log("auditorium_chat")
+        socket.on('auditorium_guest_chat', function(data) {
+            console.log("房间内聊天：")
+            console.log(data)
+        })
+
+        // 放映室视频切换 - 房主操作时使用
+        socket.on('auditorium_guest_switch', function(data) {
+            console.log("房主切换了视频：")
             console.log(data)
         })
     }
 
     const fetchAuditoriumInfo = () => {
-        console.log("auditorium_id: " + id)
-        socket.emit('auditorium_join', {roomID: id});
+        console.log("放映室初始化 - 加入 ROOM " + id)
+        socket.emit('auditorium_guest_join', {roomID: id});
+    }
+
+    const submitAuditoriumChat = () => {
+        console.log("发送聊天信息")
+        if (username === "") {
+            alert("请输入用户名")
+            return
+        }
+        socket.emit('auditorium_host_chat', {
+            username: username,
+            message: message
+        })
     }
 
     React.useEffect(() => {

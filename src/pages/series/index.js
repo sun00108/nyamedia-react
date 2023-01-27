@@ -47,7 +47,7 @@ export default function SeriesIndex() {
                                                         <Meta
                                                             title={item.name}
                                                             description={item.name_cn}
-                                                        />{"第" + item.season + "季"}
+                                                        />
                                                     </Card>
                                                 </Link>
                                             </Col>
