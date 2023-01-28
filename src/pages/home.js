@@ -18,7 +18,7 @@ export default function Home() {
     const { Header, Footer, Content } = Layout;
 
     const [ latest, setLatest ] = React.useState([]);
-    const [ onair, setOnAir ] = React.useState([]);
+    //const [ onair, setOnAir ] = React.useState([]);
 
     const fetchLatestUpdate = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/latest').then( res => {
@@ -26,15 +26,15 @@ export default function Home() {
         })
     }
 
-    const fetchOnAir = () => {
+    /*const fetchOnAir = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/onairseries/today').then( res => {
             setOnAir(res.data.onairseries)
         })
-    }
+    }*/
 
     React.useEffect(() => {
         fetchLatestUpdate();
-        fetchOnAir();
+        //fetchOnAir();
     },[])
 
     return (
@@ -58,7 +58,7 @@ export default function Home() {
                                                 <Meta
                                                     title={item.name}
                                                     description={item.name_cn}
-                                                />{"第" + item.season + "季"}
+                                                />
                                             </Card>
                                         </Link>
                                     </Col>
@@ -66,7 +66,7 @@ export default function Home() {
                             })
                         }
                     </Row>
-                    <Row type={"flex"} justify={"center"}>
+                    {/*<Row type={"flex"} justify={"center"}>
                         <Col xs={24} xxl={12}>
                             <Title style={{ margin: '8px 0' }} >今日放映</Title>
                         </Col>
@@ -99,7 +99,7 @@ export default function Home() {
                                 }
                             </Row>
                         </Col>
-                    </Row>
+                    </Row>*/}
                 </div>
             </Content>
             <Footer></Footer>

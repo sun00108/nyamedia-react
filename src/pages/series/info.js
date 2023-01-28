@@ -93,7 +93,7 @@ export default function SeriesInfo() {
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
                             <Title>{series.name_cn}</Title>
-                            <Text>{series.name} - 第 {series.season} 季</Text>
+                            <Text>{series.name}</Text>
                             <br />
                             <Text>{series.description}</Text>
                             <br />
