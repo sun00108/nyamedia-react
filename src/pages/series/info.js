@@ -80,7 +80,7 @@ export default function SeriesInfo() {
                     <Row type={"flex"} justify={"center"}>
                         <Col md={12} xs={24}>
                             {
-                                images["poster"] ?
+                                images["backdrop"] ?
                                     <Card
                                         bordered={false}
                                         cover={<img src={process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + series.id + "/backdrop/" + images["backdrop"] + ".jpg"} />}>
@@ -137,11 +137,11 @@ export default function SeriesInfo() {
                         <Col md={12} xs={24}>
                             <Row gutter={[16, 16]}>
                                 {
-                                    episodes.map((item) => {
+                                    Object.keys(episodes).map((item) => {
                                         return (
                                             <Col md={2} xs={4}>
-                                                <Link to={"/series/" + id + "/play/" + item.episode} style={{ textDecoration: 'none'}}>
-                                                    <Button type="tertiary" block>{item.episode}</Button>
+                                                <Link to={"/series/" + id + "/play/" + item} style={{ textDecoration: 'none'}}>
+                                                    <Button type="tertiary" block>{item}</Button>
                                                 </Link>
                                             </Col>
                                         )
