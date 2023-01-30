@@ -28,10 +28,10 @@ export default function SeriesInfo() {
 
     const fetchSeries = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/' + id).then( res => {
-            setSeries(res.data.series)
-            setImages(res.data.images)
-            setEpisodes(res.data.episodes)
-            setRelationships(res.data.relationships)
+            setSeries(res.data.data.series)
+            setImages(res.data.data.images)
+            setEpisodes(res.data.data.episodes)
+            setRelationships(res.data.data.relationships)
         })
     }
 
@@ -52,7 +52,6 @@ export default function SeriesInfo() {
         fetchSeries()
         fetchTags()
         fetchTaggings()
-
     }, [])
 
     const { Header, Footer, Content } = Layout;
