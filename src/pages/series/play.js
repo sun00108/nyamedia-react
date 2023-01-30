@@ -76,8 +76,8 @@ export default function SeriesPlay() {
         player.destroy()
         let subtitle = null
         if (Object.keys(video.subtitle).length > 0) {
-            subtitle = [ { src: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/subtitle/" + video.subtitle.file, label: '中文简体', srclang: "zh", kind: 'subtitles', default: true } ]
-            console.log("这个碟里有字幕，字幕内容：", Object.keys(video.subtitle))
+            subtitle = [ { src: process.env.REACT_APP_MINIO_HOST + "/nyamedia/series/" + id + "/subtitle/" + video.subtitle["zh-CN"].file, label: '中文简体', srclang: "zh", kind: 'subtitles', default: true } ]
+            console.log("这个碟里有字幕，字幕内容：", video.subtitle["zh-CN"].file)
         }
         player = new Player({
             id: 'vs',
