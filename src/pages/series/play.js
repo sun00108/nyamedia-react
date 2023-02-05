@@ -20,10 +20,7 @@ export default function SeriesPlay() {
     const { Header, Footer, Content } = Layout;
     const { Title, Paragraph, Text } = Typography;
 
-
     const [ seriesSimilar, setSeriesSimilar ] = React.useState([]);
-
-    const init = useRef(true)
 
     const [ series, setSeries ] = React.useState({});
     const [ episodes, setEpisodes ] = React.useState({});
@@ -32,7 +29,6 @@ export default function SeriesPlay() {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/' + id).then( res => {
             setSeries(res.data.data.series)
             setEpisodes(res.data.data.episodes)
-            console.log(res.data.data.episodes)
             setVideoId(res.data.data.episodes[episode])
         })
     }

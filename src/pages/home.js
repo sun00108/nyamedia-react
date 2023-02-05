@@ -22,7 +22,7 @@ export default function Home() {
 
     const fetchLatestUpdate = () => {
         axios.get( process.env.REACT_APP_API_HOST + '/api/v1/series/latest').then( res => {
-            setLatest(res.data.series)
+            setLatest(res.data.data)
         })
     }
 
