@@ -89,6 +89,15 @@ export default function SeriesPlay() {
                 format: '.png'
             }
         })
+        window.addEventListener('keydown', (event) => {
+            if (event.key === 'o') {
+                Player.util.addClass(player.root, 'xgplayer-pause')
+            } else if (event.key === 'p') {
+                Player.util.removeClass(player.root, 'xgplayer-pause')
+            } else {
+                console.log(event.key)
+            }
+        })
     },[video])
 
     useUpdateEffect(() => {
